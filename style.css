@@ -8,26 +8,57 @@
     font-size: 62.5%;
     --primary-color: hsl(170, 100%, 26%);
     --brand: hsl(148, 23%, 89%);
+    --brand-biege: hsl(39, 100%, 97%);
+    --brand-light: hsl(148, 23%, 89%);
     --headline: hsl(210, 11%, 15%, );
     --paragraph: hsl(210, 9%, 31%);
+    --nav-height: 7.2rem;
 }
 
 body {
     font-family: 'DM Sans';
     font-size: 1.6rem;
     text-align: center;
+    overflow: overlay;
 }
+
+ul {
+    list-style: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    width: 37.5rem;
+    margin-inline: auto;
+    padding-inline: 2.4rem;
+}
+
+/* =================Header========================== */
 
 header {
-    background: var(--brand);
-    width: 37.5rem;
-    height: 100rem;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 4.1rem;
+    margin-top: calc(4.1rem + var(--nav-height));
 }
 
-p {
+header::before {
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+    justify-content: center;
+    content: "";
+    width: 100%;
+    height: calc(108rem + var(--nav-height));
+    display: block;
+    background: var(--brand);
+
+}
+
+header p {
     font-size: 1.8rem;
     line-height: 150%;
     font-weight: 400;
@@ -35,20 +66,20 @@ p {
     margin-bottom: 3.2rem;
 }
 
-h1 {
+header h1 {
     font-size: 3.4rem;
     color: var(--headline);
     line-height: 130%;
     margin-bottom: 2.4rem;
 }
 
-h4 {
+header h4 {
     font-size: 1.4rem;
     margin-bottom: 1.6rem;
     color: var(--primary-color);
 }
 
-button {
+header button {
     /* position: absolute; */
     border: none;
     border-radius: 4rem;
@@ -72,17 +103,27 @@ button {
     margin-bottom: 6rem;
 }
 
+header img {
+    display: block;
+    margin-inline: auto;
+    object-position: 0 2rem;
+    width: 26.4rem;
+}
+
 .bg {
     width: 32.7rem;
-    height: 47rem;
-    background: #FFFAF1;
+    padding-block: 4rem;
+    background: var(--brand-biege);
+
     margin-inline: auto;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 0.01rem solid #DCE9E2;
-    border-radius: 0.06rem;
     gap: 6rem;
+
+    border-radius: 0.06rem;
+    border: 0.01rem solid var(--brand-light);
 }
 
 .item-bg p {
@@ -91,7 +132,146 @@ button {
     color: var(--primary-color);
     font-size: 1.6rem;
 }
-.item-bg h3{
+
+.item-bg h3 {
     color: var(--headline);
     font-size: 4.8rem;
+    line-height: 130%;
+
+    margin-bottom: 0.4rem;
+}
+
+/* ==========================Navigation============================== */
+
+nav {
+    display: flex;
+    /* padding: 1.6rem 2.4rem; */
+    height: var(--nav-height);
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+nav button{
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+nav .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav.scroll {
+    background: var(--primary-color);
+    width: 100vw;
+}
+
+nav.scroll svg:nth-child(1) path {
+    fill: white;
+}
+
+nav.scroll button path {
+    stroke: white;
+}
+
+
+/* ==========================Menu Expanded============================== */
+body.menu-expanded {
+    overflow: hidden;
+}
+
+body.menu-expanded > :not(nav) {
+    display: none;
+}
+
+body.menu-expanded .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: var(--primary-color);
+
+    width: 100vw;
+    height: 100vh;
+    padding-top: var(--nav-height);
+}
+
+body.menu-expanded .menu,
+body.menu-expanded .close-menu {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+body.menu-expanded nav {
+    position: relative;
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 3.2rem;
+    justify-content: center;
+}
+
+.menu ul:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    gap: 4.8rem;
+    margin-top: 6rem;
+
+    font-weight: bold;
+    font-size: 2.4rem;
+    line-height: 3.1rem;
+}
+
+.menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu .button {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    text-decoration: none;
+
+    display: inline-block;
+    padding: 16px 32px;
+    gap: 16px;
+
+    margin-top: 4.8rem;
+    margin-bottom: 8rem;
+
+    width: 274px;
+    height: 55px;
+    background: #FFFFFF;
+    border-radius: 4rem;
+}
+
+body.menu-expanded .logo,
+body.menu-expanded button {
+    position: relative;
+    z-index: 100;
+}
+
+body.menu-expanded .logo path {
+    fill: white;
+}
+
+body.menu-expanded button path {
+    stroke: white;
+}
+
+/* ==========================Menu Closed============================== */
+.menu,
+.close-menu,
+body.menu-expanded .open-menu {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
 }
